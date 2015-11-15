@@ -2,6 +2,7 @@ package toolbox
 
 import (
 	"testing"
+	"math"
 )
 
 func failOnFloatMismatch(expectedFloat, receivedFloat float64, t *testing.T) {
