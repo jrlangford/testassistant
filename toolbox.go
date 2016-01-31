@@ -4,6 +4,7 @@ import (
 	"math"
 	"testing"
 	"fmt"
+	"regexp"
 )
 
 var Debug = false
@@ -35,5 +36,35 @@ func FailOnIntMismatch(expectedInt, receivedInt int, t *testing.T) {
 		t.Error(outputString)
 	} else if Debug {
 		fmt.Print(outputString)
+	}
+}
+
+func FailOnStringMismatch(expectedString, receivedString string, t *testing.T) {
+	if receivedString != expectedString {
+		t.Error("String Mismatch")
+		t.Error("--------------------------------------------------")
+		t.Error("Received String:")
+		t.Error(receivedString)
+		t.Error("--------------------------------------------------")
+		t.Error("Expected String")
+		t.Error(expectedString)
+		t.Error("--------------------------------------------------")
+		t.Fail()
+	}
+}
+
+func FailOnRegexMismatch(expectedPattern, receivedString string, t *testing.T) {
+	matched, _ := regexp.MatchString(expectedPattern, receivedString)
+
+	if !matched {
+		t.Error("Regex Mismatch")
+		t.Error("--------------------------------------------------")
+		t.Error("Received String <formatted>")
+		t.Error(receivedString)
+		t.Error("--------------------------------------------------")
+		t.Error("Expected Pattern <formatted>")
+		t.Error(expectedPattern)
+		t.Error("--------------------------------------------------")
+		t.Fail()
 	}
 }
