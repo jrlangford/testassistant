@@ -41,14 +41,14 @@ func FailOnIntMismatch(expectedInt, receivedInt int, t *testing.T) {
 
 func FailOnStringMismatch(expectedString, receivedString string, t *testing.T) {
 	if receivedString != expectedString {
-		t.Error("String Mismatch")
-		t.Error("--------------------------------------------------")
-		t.Error("Received String:")
-		t.Error(receivedString)
-		t.Error("--------------------------------------------------")
-		t.Error("Expected String")
-		t.Error(expectedString)
-		t.Error("--------------------------------------------------")
+		t.Log("String Mismatch")
+		t.Log("--------------------------------------------------")
+		t.Log("Received String:")
+		t.Log(receivedString)
+		t.Log("--------------------------------------------------")
+		t.Log("Expected String")
+		t.Log(expectedString)
+		t.Log("--------------------------------------------------")
 		t.Fail()
 	}
 }
@@ -57,14 +57,14 @@ func FailOnRegexMismatch(expectedPattern, receivedString string, t *testing.T) {
 	matched, _ := regexp.MatchString(expectedPattern, receivedString)
 
 	if !matched {
-		t.Error("Regex Mismatch")
-		t.Error("--------------------------------------------------")
-		t.Error("Received String <formatted>")
-		t.Error(receivedString)
-		t.Error("--------------------------------------------------")
-		t.Error("Expected Pattern <formatted>")
-		t.Error(expectedPattern)
-		t.Error("--------------------------------------------------")
+		t.Log("Regex Mismatch")
+		t.Log("--------------------------------------------------")
+		t.Log("Received String <formatted>")
+		t.Log(receivedString)
+		t.Log("--------------------------------------------------")
+		t.Log("Expected Pattern <formatted>")
+		t.Log(expectedPattern)
+		t.Log("--------------------------------------------------")
 		t.Fail()
 	}
 }
