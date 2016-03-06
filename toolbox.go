@@ -47,31 +47,31 @@ func FailOnIntMismatch(expectedInt, receivedInt int, t *testing.T) {
 //FailOnStringMismatch compares two strings and reports failure if they are not equal.
 func FailOnStringMismatch(expectedString, receivedString string, t *testing.T) {
 	if receivedString != expectedString {
-		t.Log("String Mismatch")
-		t.Log("--------------------------------------------------")
-		t.Log("Received String:")
-		t.Log(receivedString)
-		t.Log("--------------------------------------------------")
-		t.Log("Expected String")
-		t.Log(expectedString)
-		t.Log("--------------------------------------------------")
-		t.Fail()
+		outputString := fmt.Sprintf(
+			"String Mismatch\n--------------------------------------------------\n"+
+				"Received String:\n%s\n--------------------------------------------------\n"+
+				"Expected String:\n%s\n--------------------------------------------------\n",
+			receivedString,
+			expectedString,
+		)
+		t.Error(outputString)
 	}
 }
 
 //FailOnRegexMismatch compares a string with a regex pattern and reports failure if they do not match.
 func FailOnRegexMismatch(expectedPattern, receivedString string, t *testing.T) {
-	matched, _ := regexp.MatchString(expectedPattern, receivedString)
-
+	matched, err := regexp.MatchString(expectedPattern, receivedString)
+	if err != nil {
+		t.Error(err.Error())
+	}
 	if !matched {
-		t.Log("Regex Mismatch")
-		t.Log("--------------------------------------------------")
-		t.Log("Received String <formatted>")
-		t.Log(receivedString)
-		t.Log("--------------------------------------------------")
-		t.Log("Expected Pattern <formatted>")
-		t.Log(expectedPattern)
-		t.Log("--------------------------------------------------")
-		t.Fail()
+		outputString := fmt.Sprintf(
+			"Regex Mismatch\n--------------------------------------------------\n"+
+				"Received String:\n%s\n--------------------------------------------------\n"+
+				"Expected Pattern:\n%s\n--------------------------------------------------\n",
+			receivedString,
+			expectedPattern,
+		)
+		t.Error(outputString)
 	}
 }
